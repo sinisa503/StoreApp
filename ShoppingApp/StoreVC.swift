@@ -133,9 +133,12 @@ class StoreVC: UIViewController {
    private func updatePrices (with currency: Currency) {
       for product in products {
          product.setPrice(with: currency)
-      }
+      }      
+      guard let selectedRows =  tableView.indexPathsForSelectedRows else {return}
       tableView.reloadData()
-      selectedProducts = []
+         for selectedRow in selectedRows {
+            tableView.selectRow(at: selectedRow, animated: true, scrollPosition: UITableViewScrollPosition.none)
+         }
    }
 }
 
