@@ -77,6 +77,15 @@ class StoreVC: UIViewController {
       loadCurrencies()
    }
    
+   override func viewWillLayoutSubviews() {
+      super.viewWillLayoutSubviews()
+      
+      if let segmentedControl = segmentedControl {
+         segmentedControlView.updateConstraints()
+         segmentedControl.updateConstraints()
+      }
+   }
+   
    @IBAction func checkOutPressed(_ sender: UIBarButtonItem) {
       
       
