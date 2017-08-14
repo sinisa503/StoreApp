@@ -8,7 +8,11 @@
 
 import Foundation
 
-class DataService {
+protocol DataServiceProtocol {
+    func getCurrenciesRates(_success: @escaping([Currency])->Void, _failure: @escaping(NetworkError)->Void)  
+}
+
+class DataService:DataServiceProtocol {
    
    public static let shared = DataService()
    

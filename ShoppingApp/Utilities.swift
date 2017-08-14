@@ -9,7 +9,7 @@
 import Foundation
 
 class Utilities {
-   
+
    public static func removeUSDPrefix(currency: String) -> String {
       let prefixedString = currency
       if prefixedString.contains("USD") {
