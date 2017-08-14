@@ -10,6 +10,8 @@ import UIKit
 
 @IBDesignable
 open class GradientView: UIView {
+   
+//MARK: IBInspectable properties
    @IBInspectable
    public var startColor: UIColor = .white {
       didSet {
@@ -24,7 +26,8 @@ open class GradientView: UIView {
          setNeedsDisplay()
       }
    }
-   
+
+//MARK: Gradient Layer
    private lazy var gradientLayer: CAGradientLayer = {
       let gradientLayer = CAGradientLayer()
       gradientLayer.frame = self.bounds
@@ -32,6 +35,7 @@ open class GradientView: UIView {
       return gradientLayer
    }()
    
+//MARK: Initialization
    override init(frame: CGRect) {
       super.init(frame: frame)
       layer.insertSublayer(gradientLayer, at: 0)
@@ -42,6 +46,7 @@ open class GradientView: UIView {
       layer.insertSublayer(gradientLayer, at: 0)
    }
    
+//MARK: UIView lifecycle methods
    open override func layoutSubviews() {
       gradientLayer.frame = bounds
    }

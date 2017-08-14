@@ -29,6 +29,7 @@ class DataService {
       url = (components?.url)!
    }
    
+   /** Get currency rates in relation to US Dollar **/
    func getCurrenciesRates(_success: @escaping([Currency])->Void, _failure: @escaping(NetworkError)->Void) {
       networkService.getApiResponse(with: url, success: { (data) in
          if let jsonResult = try? JSONSerialization.jsonObject(with: data,

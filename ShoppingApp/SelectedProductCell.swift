@@ -13,12 +13,14 @@ protocol FinalPriceProtocol {
 }
 
 class SelectedProductCell: UITableViewCell {
-   
+
+//MARK: IBOutlets
    @IBOutlet weak var cellImageView: RoundedImageView!
    @IBOutlet weak var priceLabel: UILabel!
    @IBOutlet weak var nameLabel: UILabel!
    @IBOutlet weak var numberPicker: UIPickerView!
-   
+
+//MARK: Properties
    internal let numberPickerDataSource:[Int] = [1,2,3,4,5,6,7,8,9,10]
    internal var product:Product?
    internal var delegate:FinalPriceProtocol?
@@ -28,7 +30,8 @@ class SelectedProductCell: UITableViewCell {
          delegate?.allProductsPrices[(product?.name)!] = totalPrice
       }
    }
-   
+
+//MARK: UITableViewCell methods
     override func awakeFromNib() {
         super.awakeFromNib()
       
@@ -36,6 +39,7 @@ class SelectedProductCell: UITableViewCell {
       numberPicker.delegate = self
     }
 
+//MARK: Configure cell
    func configure(with product:Product) {
       self.product = product
       cellImageView.image = UIImage(named: product.name)
@@ -47,7 +51,7 @@ class SelectedProductCell: UITableViewCell {
    
 }
 
-
+//MARK: UIPickerViewDelegate, UIPickerViewDataSource
 extension SelectedProductCell: UIPickerViewDelegate, UIPickerViewDataSource {
    
    func numberOfComponents(in pickerView: UIPickerView) -> Int {

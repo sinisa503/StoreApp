@@ -10,13 +10,8 @@ import Foundation
 
 class NetworkService {
    
-
-   
-
    private let session = URLSession.shared
-   
    public static let shared: NetworkService = NetworkService()
-   
    
    func getApiResponse(with url:URL, success _success: @escaping (Data) -> Void,
                       failure _failure: @escaping (NetworkError) -> Void) {

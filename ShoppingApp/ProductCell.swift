@@ -10,13 +10,16 @@ import UIKit
 
 class ProductCell: UITableViewCell {
 
+//MARK: IBOutlets
    @IBOutlet weak var cellImageView: RoundedImageView!
    @IBOutlet weak var basketImageView: UIImageView!
    @IBOutlet weak var priceLabel: UILabel!
    @IBOutlet weak var nameLabel: UILabel!
    
-   var product:Product?
+//MARK: Property
+   public var product:Product?
 
+//MARK: UITableViewCell methods
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -27,7 +30,7 @@ class ProductCell: UITableViewCell {
       }
     }
    
-   
+//MARK: Private methods
    func configureCell(with product: Product) {
       self.product = product
       if let image = UIImage(named: product.name) {

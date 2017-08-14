@@ -107,7 +107,7 @@
 		021148431F40D16600494736 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0237BE291F3B08250047A238 /* MainVC */,
+				0237BE291F3B08250047A238 /* StoreVC */,
 				021148441F40D23900494736 /* CheckOutVC */,
 			);
 			name = Controllers;
@@ -171,7 +171,6 @@
 				0237BE371F3B35180047A238 /* Extensions */,
 				0237BE281F3B08070047A238 /* Resources */,
 				0237BE271F3B07E00047A238 /* Convinient */,
-				0237BE231F3B078C0047A238 /* ModelView */,
 			);
 			path = ShoppingApp;
 			sourceTree = "<group>";
@@ -203,13 +202,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		0237BE231F3B078C0047A238 /* ModelView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ModelView;
-			sourceTree = "<group>";
-		};
 		0237BE271F3B07E00047A238 /* Convinient */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,14 +220,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		0237BE291F3B08250047A238 /* MainVC */ = {
+		0237BE291F3B08250047A238 /* StoreVC */ = {
 			isa = PBXGroup;
 			children = (
 				0237BE2A1F3B082E0047A238 /* Controller */,
 				0237BE221F3B07840047A238 /* View */,
 				0237BE2F1F3B23C40047A238 /* ViewModel */,
 			);
-			name = MainVC;
+			name = StoreVC;
 			sourceTree = "<group>";
 		};
 		0237BE2A1F3B082E0047A238 /* Controller */ = {

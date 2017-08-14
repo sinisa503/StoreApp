@@ -13,16 +13,20 @@ protocol ResetProtocol {
 }
 
 class CheckOutVC: UIViewController, FinalPriceProtocol{
-   
+
+//MARK: IBOutlets
    @IBOutlet weak var table:UITableView!
-   
-   internal var selectedProducts:[Product]?
+
+//MARK: Properties
    internal let cellIdentifier = "SelectedProductCellidentifier"
    private let cellNibName = "SelectedProductCell"
    private let controllerIdentifier = "CheckOutVC"
+   
+   internal var selectedProducts:[Product]?
    private var payButton:UIBarButtonItem?
    var delegate: ResetProtocol?
-   
+
+//MARK: FinalPriceProtocol property
    var allProductsPrices: [String : Double] = [:]{
       didSet {
          var finalPrice = 0.0
@@ -33,7 +37,7 @@ class CheckOutVC: UIViewController, FinalPriceProtocol{
          payButton?.title = "\(formatedString) \(selectedProducts?.first?.currency?.name ?? "USD")"
       }
    }
-   
+//MARK: Initialization
    required init?(coder aDecoder: NSCoder) {
       super.init(coder: aDecoder)
    }
@@ -43,27 +47,20 @@ class CheckOutVC: UIViewController, FinalPriceProtocol{
       super.init(nibName: controllerIdentifier, bundle: nil)
    }
    
+//MARK: Controller lifecycle methods
    override func viewDidLoad() {
       super.viewDidLoad()
-      payButton = UIBarButtonItem(title: "0.0", style: .plain, target: self, action: #selector(payForTheProducts(barButton:)))
-      let selPrCell = UINib(nibName: cellNibName, bundle: nil)
-      table.register(selPrCell, forCellReuseIdentifier: cellIdentifier)
-      self.title = "Products"
-      self.navigationItem.rightBarButtonItem = payButton
+      setUpController()
    }
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-      
-      if let selectedProducts = selectedProducts {
-         for product in selectedProducts {
-            allProductsPrices[product.name] = product.price
-         }
-      }
+      setUpPrice()
    }
    
+//MARK: Private methods
    @objc
-   func payForTheProducts(barButton: UIBarButtonItem) {
+   private func payForTheProducts(barButton: UIBarButtonItem) {
       let alert = UIAlertController(title: "Payment", message: "Authorize you payment", preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
       
@@ -81,9 +78,25 @@ class CheckOutVC: UIViewController, FinalPriceProtocol{
       
       present(alert, animated: true, completion: nil)
    }
+   
+   private func setUpController() {
+      payButton = UIBarButtonItem(title: "0.0", style: .plain, target: self, action: #selector(payForTheProducts(barButton:)))
+      let selPrCell = UINib(nibName: cellNibName, bundle: nil)
+      table.register(selPrCell, forCellReuseIdentifier: cellIdentifier)
+      self.title = "Products"
+      self.navigationItem.rightBarButtonItem = payButton
+   }
+   
+   private func setUpPrice() {
+      if let selectedProducts = selectedProducts {
+         for product in selectedProducts {
+            allProductsPrices[product.name] = product.price
+         }
+      }
+   }
 }
 
-
+//MARK: UITableViewDelegate, UITableViewDataSource
 extension CheckOutVC: UITableViewDelegate, UITableViewDataSource {
    
    func numberOfSections(in tableView: UITableView) -> Int {
@@ -93,7 +106,6 @@ extension CheckOutVC: UITableViewDelegate, UITableViewDataSource {
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return selectedProducts?.count ?? 0
    }
-   
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as?

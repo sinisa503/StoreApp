@@ -9,11 +9,20 @@
 import UIKit
 
 class StoreVC: UIViewController, ResetProtocol {
-   
+
+//MARK: IBOutlets
    @IBOutlet weak var tableView:UITableView!
    @IBOutlet weak var segmentedControlView: UIView!
    @IBOutlet weak var checkOutButton: UIBarButtonItem!
    
+//MARK: IBAction
+   @IBAction func checkOutPressed(_ sender: UIBarButtonItem) {
+      let checkOutVC = CheckOutVC(selectedProducts: selectedProducts)
+      checkOutVC.delegate = self
+      navigationController?.pushViewController(checkOutVC, animated: true)
+   }
+
+//MARK: Properties
    private var productList:[String:Double] = ["Beans":0.73, "Eggs": 2.10, "Milk":1.30, "Peas": 0.95]
    private let dataService = DataService.shared
    internal var products:[Product] = []
@@ -69,7 +78,8 @@ class StoreVC: UIViewController, ResetProtocol {
          segmentedControl?.addTarget(self, action: #selector(currencyChanged), for: .valueChanged)
       }
    }
-   
+
+//MARK: Controller lifecycle methods
    override func viewDidLoad() {
       super.viewDidLoad()
       
@@ -86,12 +96,7 @@ class StoreVC: UIViewController, ResetProtocol {
       }
    }
    
-   @IBAction func checkOutPressed(_ sender: UIBarButtonItem) {
-      let checkOutVC = CheckOutVC(selectedProducts: selectedProducts)
-      checkOutVC.delegate = self
-      navigationController?.pushViewController(checkOutVC, animated: true)
-   }
-   
+//MARK: Private methods
    private func loadProducts() {
       for identifier in productList {
          let productModel = Product(name: identifier.key, price: identifier.value)
@@ -141,7 +146,8 @@ class StoreVC: UIViewController, ResetProtocol {
             tableView.selectRow(at: selectedRow, animated: true, scrollPosition: UITableViewScrollPosition.none)
          }
    }
-   
+
+//MARK: Reset protocol method
    internal func resetAll() {
       guard let indexPaths = tableView.indexPathsForSelectedRows else { return }
       for indexPath in indexPaths {
@@ -151,7 +157,7 @@ class StoreVC: UIViewController, ResetProtocol {
    }
 }
 
-
+//MARK: UITableViewDelegate, UITableViewDataSource
 extension StoreVC: UITableViewDataSource, UITableViewDelegate {
    
    func numberOfSections(in tableView: UITableView) -> Int {

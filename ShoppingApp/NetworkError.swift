@@ -19,10 +19,12 @@ public enum NetworkError: Error {
    case unknown(HTTPURLResponse?)
    case userCancelled
    
+   
+//MARK: Initialization
    public init(error: Error) {
       self = .networkProblem(error)
    }
-   
+
    public init(response: URLResponse?) {
       guard let response = response as? HTTPURLResponse else {
          self = .unknown(nil)
