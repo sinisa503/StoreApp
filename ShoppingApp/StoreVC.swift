@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StoreVC: UIViewController {
+class StoreVC: UIViewController, ResetProtocol {
    
    @IBOutlet weak var tableView:UITableView!
    @IBOutlet weak var segmentedControlView: UIView!
@@ -87,8 +87,9 @@ class StoreVC: UIViewController {
    }
    
    @IBAction func checkOutPressed(_ sender: UIBarButtonItem) {
-      
-      
+      let checkOutVC = CheckOutVC(selectedProducts: selectedProducts)
+      checkOutVC.delegate = self
+      navigationController?.pushViewController(checkOutVC, animated: true)
    }
    
    private func loadProducts() {
@@ -139,6 +140,14 @@ class StoreVC: UIViewController {
          for selectedRow in selectedRows {
             tableView.selectRow(at: selectedRow, animated: true, scrollPosition: UITableViewScrollPosition.none)
          }
+   }
+   
+   internal func resetAll() {
+      guard let indexPaths = tableView.indexPathsForSelectedRows else { return }
+      for indexPath in indexPaths {
+         tableView.deselectRow(at: indexPath, animated: true)
+      }
+      selectedProducts = []
    }
 }
 
