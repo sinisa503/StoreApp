@@ -140,7 +140,10 @@ class StoreVC: UIViewController, ResetProtocol {
       for product in products {
          product.setPrice(with: currency)
       }      
-      guard let selectedRows =  tableView.indexPathsForSelectedRows else {return}
+      guard let selectedRows =  tableView.indexPathsForSelectedRows else {
+         tableView.reloadData()
+         return
+      }
       tableView.reloadData()
          for selectedRow in selectedRows {
             tableView.selectRow(at: selectedRow, animated: true, scrollPosition: UITableViewScrollPosition.none)
